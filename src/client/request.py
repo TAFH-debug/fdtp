@@ -1,6 +1,6 @@
 import socket
 
-from exceptions import OversizeError
+from src.exceptions import OversizeError
 
 PORT = 2000
 SHORT_DATA_SIZE = 16

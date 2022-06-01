@@ -21,4 +21,3 @@ class RequestBuilder:
 
     def build(self):
         pass
-
