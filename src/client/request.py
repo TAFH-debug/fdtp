@@ -1,6 +1,8 @@
 import socket
+from typing import SupportsBytes
 
 from src.exceptions import OversizeError
+from src.сonstants import *
 
 PORT = 2000
 SHORT_DATA_SIZE = 16
@@ -10,9 +12,12 @@ LONG_DATA_SIZE = 32
 def get(hostname: str, uri: str, data: str):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM, 0) as s:
         s.connect((hostname, PORT))
-        request = list()
-        request.append(0x00)
-        # TODO
+        request = list[bytes]()
+        request.append(RequestTypeCode.GET.value)
+        request.append(len(uri).to_bytes(8, "big"))
+        request.append(len(data).to_bytes(8, "big"))
+        request.append(bytes(data))
+        s.send(bytes(request))
 
 
 def short(hostname: str, urid: int, data: str):
